@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 const Joi = require('joi');
-const config = require('../config/key');
 
 const houseSchema = new mongoose.Schema({
  
@@ -54,7 +53,7 @@ const houseSchema = new mongoose.Schema({
         default:Date.now
     }   
     });
-    const House = mongoose.model('User',houseSchema);
+    const House = mongoose.model('House',houseSchema);
     function validateHouse(house){
         const schema = {
             houseType: Joi.string().min(3).max(50),
