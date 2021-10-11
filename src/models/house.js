@@ -5,7 +5,7 @@ const houseSchema = new mongoose.Schema({
  
     houseType:{
         type: String,
-        required: false,
+        required: true,
         minlength:3,
         maxlength:50
     },
@@ -32,6 +32,10 @@ const houseSchema = new mongoose.Schema({
         type: String,
     },
     availableDate: Date,
+    localAreaName: {
+        type:String,
+        required: true,
+    },
     houseGPS:{ 
         type: {
           type: String,
@@ -63,6 +67,7 @@ const houseSchema = new mongoose.Schema({
             status: Joi.string(),
             usage: Joi.string(),
             availableDate: Joi.date(),
+            localAreaName: Joi.string().min(2).max(50),
             houseGPS: Joi.coordinates()
           
             }
