@@ -14,10 +14,17 @@ const create = async function(userData){
  * get a user with given phonNumber or email from db .
  */
 const check = async function (phoneNumber) {
-    let user = await user.findOne(phoneNumber);
+    let user = await User.findOne(phoneNumber);
     return user;
   }
    
+  /**
+ * get a user with given email from db .
+ */
+const checkUser = async function (email) {
+  let user = await User.findOne(email);
+  return user;
+}
   /**
  * get a user with given id from db .
  */
@@ -50,4 +57,4 @@ const update = async function(query, userData) {
     return user;
   }
 
-  module.exports = {create, getAll, getById ,update,deleteById,check};
+  module.exports = {create, getAll, getById ,update,deleteById,check, checkUser};

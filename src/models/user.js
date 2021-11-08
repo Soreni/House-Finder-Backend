@@ -7,16 +7,10 @@ const config = require('../config/key');
 
 const userSchema = new mongoose.Schema({
  
-    firstName:{
+    fullName:{
         type: String,
         required: false,
-        minlength:3,
-        maxlength:50
-    },
-    lastName:{
-        type: String,
-        required: false,
-        minlength:3,
+        minlength:5,
         maxlength:50
     },
     countryCode: {
@@ -36,6 +30,9 @@ const userSchema = new mongoose.Schema({
         type: String,
         unique:true,
     },
+    role:{
+        type: String
+    },
  
     verificationCode:String,
     isVerified: {
@@ -54,6 +51,7 @@ const userSchema = new mongoose.Schema({
     }   
     });
 
+    //if jwt needed 
     userSchema.methods.generateAuthToken = function(){
             return jwt.sign(
                 { _id: this._id},
@@ -64,10 +62,10 @@ const User = mongoose.model('User',userSchema);
 
 function validateUser(user){
     const schema = {
-        firstName: Joi.string().min(3).max(50),
-        lastName: Joi.string().min(3).max(50),
-        email: Joi.string(),
+        fullName: Joi.string().min(5).max(50),
+        email: Joi.string().required(),
         password: Joi.string().min(8).required(),
+        role: Joi.string(),
         countryCode: Joi.string().min(3).max(5).required(),
         phoneNumber: Joi.string().min(9).max(14),      
         verificationCode:Joi.string().min(3).max(50),

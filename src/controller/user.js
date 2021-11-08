@@ -1,33 +1,47 @@
 const User = require('../dal/user');
 const validate = require('../models/user');
 const _ = require('lodash');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 
 //create a user 
-module.exports.createUser =async (req, res)=> {
+module.exports.loginUser =async (req, res)=> {
     const body = req.body;
   
      const {error}= validate(body);
      if(error) return res.status(404).json(error.details[0].message);
-      
-     let user = await User.check({ phoneNumber: body.phoneNumber })
-     if (!user) return  res.status(400).json('Invalid User');
-     await User.update(user._id,body);
-     res.status(200).json("Successfully  Registered!");
+     
+     const user = await User.checkUser({ email: body.email})
+     if (!user) return  res.status(404).json('Invalid User');
+     console.log(user.password)
+     const validPassword = await bcrypt.compare(body.password, user.password)
+     if(!validPassword) return res.status(404).json('Invalid Email or Password')
+
+     res.status(200).json("Logged in...");
    };
   
    //register a user as signup
-module.exports.createUser2 =async (req, res)=> {
+module.exports.createUser = async (req, res)=> {
     const body = req.body;
 
      const {error}= validate(body);
      if(error) return res.status(404).json(error.details[0].message);
+
+     let user = await User.checkUser({ email: body.email })
+     if (user) return  res.status(400).json('User Already Registered');
+
+      //hashing password
+      const salt = await bcrypt.genSalt();
+      const hashPassword = await bcrypt.hash(body.password, salt);
+
       await User.create({
-        email: req.body.email,
-        password: req.body.password,
-        countryCode: req.body.countryCode,
-        phoneNumber: req.body.phoneNumber,      
-        verificationCode:req.body.verificationCode,
+        fullName: body.fullName,
+        email: body.email,
+        password: hashPassword,
+        countryCode: body.countryCode,
+        phoneNumber: body.phoneNumber,      
+        verificationCode:body.verificationCode,
         isVerified: body.isVerified
       });
      res.status(200).json("Successfully  Registered!");

@@ -4,12 +4,20 @@ const House = require('../models/house');
 
 //create house
 const create = async function(houseData){  
-
     let house = new House(houseData);
     await house.save();
     
 }
 
+
+
+  /**
+ * get a house with given housenumber from db .
+ */
+   const check = async function (houseNumber) {
+    let house = await House.findOne(houseNumber);
+    return house;
+  }
 
    
   /**
@@ -33,7 +41,7 @@ const getAll = async function( ) {
   /**
  * Fetch houses by filter
  */
-const getAll = async function( localAreaName) {
+const getHouse = async function( localAreaName) {
     let house = await House.find({isAvailable: true, localAreaName: localAreaName });
     return house;
   }

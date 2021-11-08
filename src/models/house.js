@@ -9,6 +9,13 @@ const houseSchema = new mongoose.Schema({
         minlength:3,
         maxlength:50
     },
+    houseNumber:{
+        type: String,
+        required: true,
+        unique:true,
+        minlength:3,
+        maxlength:50
+    },
     furnished:{
         type: Boolean,
         default: false,
@@ -22,8 +29,10 @@ const houseSchema = new mongoose.Schema({
     usage:{
         type: String
     },
-    status: String,
- 
+    isAvailable: {
+        type: Boolean,
+        default: false,
+    },
     image:{
         data: Buffer,
         type: String
@@ -61,6 +70,7 @@ const houseSchema = new mongoose.Schema({
     function validateHouse(house){
         const schema = {
             houseType: Joi.string().min(3).max(50),
+            houseNumber: Joi.string().min(3).max(50),
             furnished: Joi.boolean(),
             floor: Joi.string(),
             unitStructure: Joi.string(),

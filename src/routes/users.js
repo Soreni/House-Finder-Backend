@@ -1,16 +1,19 @@
 const express = require('express');
 const userController = require('../controller/user');
+const auth = require('../middleware/verifyToken');
 const router = express.Router();
 
 
 
-router.post("/register", userController.createUser2);
 
-router.get("/:id", userController.getUser);
+router.post("/register", userController.createUser);
+
+
+router.get("/:id",auth, userController.getUser);
 
 router.get("/", userController.getAll);
 
-router.put("/:id", userController.updateUser);
+router.put("/:id",auth, userController.updateUser);
 
 router.delete("/:id", userController.deleteUser);
 
