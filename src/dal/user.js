@@ -7,7 +7,7 @@ const create = async function(userData){
 
     let user = new User(userData);
     await user.save();
-    
+    return user;
 }
 
   /**

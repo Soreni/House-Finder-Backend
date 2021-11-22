@@ -14,8 +14,7 @@ const userSchema = new mongoose.Schema({
         maxlength:50
     },
     countryCode: {
-        type: String,
-        required: true
+        type: String
     },
     phoneNumber: {
         type: String,
@@ -64,9 +63,9 @@ function validateUser(user){
     const schema = {
         fullName: Joi.string().min(5).max(50),
         email: Joi.string().required(),
-        password: Joi.string().min(8).required(),
+        password: Joi.string().min(6).required(),
         role: Joi.string(),
-        countryCode: Joi.string().min(3).max(5).required(),
+        countryCode: Joi.string().min(3).max(5),
         phoneNumber: Joi.string().min(9).max(14),      
         verificationCode:Joi.string().min(3).max(50),
         isVerified: Joi.boolean()
