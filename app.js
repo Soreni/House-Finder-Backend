@@ -19,7 +19,7 @@ app.use(express.json());
 //api routes 
 app.use('/api/housefinder/users', require('./src/routes/users'));
 app.use('/api/housefinder/houses', require('./src/routes/houses'));
-app.use('/api/housefinder/login', require('./src/routes/login'));
+app.use('/api/housefinder/users/login', require('./src/routes/login'));
 
 
 app.get('/', (req, res)=>{

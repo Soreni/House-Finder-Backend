@@ -22,7 +22,7 @@ module.exports.loginUser =async (req, res)=> {
      if(error) return res.status(404).json(error.details[0].message);
      try{
      const user = await User.checkUser({ email: body.email})
-     if (!user) return  res.status(404).json({success: false, message:'Invalid User'});
+     if (!user) return  res.status(404).json({success: false, message:'User is not registered'});
     
      const validPassword = await bcrypt.compare(body.password, user.password)
      if(!validPassword) return res.status(404).json({success: false, message:'Invalid Email or Password'})

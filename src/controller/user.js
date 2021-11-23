@@ -54,7 +54,7 @@ module.exports.createUser = async (req, res)=> {
    exports.getUser = async (req, res)=> {
     const user = await User.getById(req.params.id);
     if (!user) return res.status(404).json({success: false, message:"The client is not found!!!"});
-    res.status(200).json(_.pick(user,['_id','countryCode','phoneNumber','firstName','lastName']));
+    res.status(200).json(_.pick(user,['_id','countryCode','phoneNumber','fullName','email']));
     
 };
 
@@ -62,7 +62,7 @@ module.exports.createUser = async (req, res)=> {
 // Get all of Users
 exports.getAll = async (req, res)=> {
     let user = await User.getAll()
-    res.status(200).json({success: true, data:_.map(user,_.partialRight(_.pick,['_id','countryCode','phoneNumber','firstName','lastName']))})
+    res.status(200).json({success: true, data:_.map(user,_.partialRight(_.pick,['_id','fullName','email']))})
   
   }
     /**
@@ -76,7 +76,7 @@ exports.getAll = async (req, res)=> {
        if(error) return res.status(404).json(error.details[0].message);
        try{
         let user = await  User.update({ _id: req.params.id }, body);
-        res.status(200).json(_.pick(user,['_id','countryCode','phoneNumber','firstName','lastName']));
+        res.status(200).json(_.pick(user,['_id','countryCode','phoneNumber','fullName','email']));
        }
        catch(err) 
        {
@@ -87,6 +87,6 @@ exports.getAll = async (req, res)=> {
   
     exports.deleteUser = async (req, res)=>  {    
           let user = await  User.deleteById(req.params.id);
-          res.status(200).json(_.pick(user,['_id','countryCode','phoneNumber','firstName','lastName']));
+          res.status(200).json(_.pick(user,['_id','countryCode','phoneNumber','email','fullName']));
   
     };
