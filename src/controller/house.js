@@ -21,7 +21,7 @@ module.exports.createHouse =async (req, res)=> {
    exports.getHouse = async (req, res)=> {
     const house = await House.getById(req.params.id);
     if (!house) return res.status(404).json("The house is not found!!!");
-    res.status(200).json(_.pick(house,['_id','houseType','furnished','floor','localAreaName','houseGPS']));
+    res.status(200).json(_.pick(house,['_id','houseType','furnished','floor','price','localAreaName','houseGPS','price']));
     
 };
 
@@ -45,11 +45,11 @@ exports.getAll = async (req, res)=> {
        const {error}= validate(body);
        if(error) return res.status(404).json(error.details[0].message);
         let house = await  House.update({ _id: req.params.id }, body);
-        res.status(200).json(_.pick(house,['_id','houseType','furnished','floor']));
+        res.status(200).json(_.pick(house,['_id','houseType','furnished','floor','price']));
     };
   
     exports.deleteHouse = async (req, res)=>  {    
           let house = await  House.deleteById(req.params.id);
-          res.status(200).json(_.pick(house,['_id','houseType','furnished','floor']));
+          res.status(200).json(_.pick(house,['_id','houseType','furnished','floor','price']));
   
     };

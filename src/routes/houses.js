@@ -5,7 +5,7 @@ const router = express.Router();
 
 
 
-router.post("/register",auth, userController.createHouse);
+router.post("/register", userController.createHouse);
 
 router.get("/:id", userController.getHouse);
 

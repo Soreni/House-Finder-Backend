@@ -23,6 +23,9 @@ const houseSchema = new mongoose.Schema({
     floor: {
         type: String
     },
+    price:{
+        type:Number
+    },
     unitStructure: {
         type: String,
     },
@@ -55,6 +58,10 @@ const houseSchema = new mongoose.Schema({
           type: [Number], 
           required: true
         }},
+    description:{
+        type: String,
+    }
+    ,
     dateCreated:{
     
         type:Date,
@@ -73,12 +80,14 @@ const houseSchema = new mongoose.Schema({
             houseNumber: Joi.string().min(3).max(50),
             furnished: Joi.boolean(),
             floor: Joi.string(),
+            price: Joi.number(),
             unitStructure: Joi.string(),
             status: Joi.string(),
             usage: Joi.string(),
             availableDate: Joi.date(),
             localAreaName: Joi.string().min(2).max(50),
-            houseGPS: Joi.coordinates()
+            houseGPS: Joi.coordinates(),
+            description: Joi.string()
           
             }
             return Joi.validate(house);
