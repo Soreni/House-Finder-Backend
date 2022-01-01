@@ -12,6 +12,7 @@ router.post("/register", userController.createUser);
 router.get("/:id",auth, userController.getUser);
 
 router.get("/", userController.getAll);
+router.get("/:id/houses", userController.getAllHouses);
 
 router.put("/:id",auth, userController.updateUser);
 

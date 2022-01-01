@@ -39,7 +39,15 @@ const getAll = async function() {
     let user = await User.find();
     return user;
   }
-  
+   /**
+ * Fetch users
+ */
+const getAllHouses = async function(_id) {
+  let user = await User.find(_id).populate('houses');
+  return user;
+}
+ 
+
   /**
    * Update a user
    */
@@ -57,4 +65,4 @@ const update = async function(query, userData) {
     return user;
   }
 
-  module.exports = {create, getAll, getById ,update,deleteById,check, checkUser};
+  module.exports = {create, getAll, getById ,update,deleteById,check, checkUser,getAllHouses};

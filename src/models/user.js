@@ -2,6 +2,7 @@ const jwt = require('jsonwebtoken');
 const mongoose = require('mongoose');
 const Joi = require('joi');
 const config = require('../config/key');
+const House = require('./house');
 
 
 
@@ -29,15 +30,16 @@ const userSchema = new mongoose.Schema({
         type: String,
         unique:true,
     },
-    role:{
-        type: String
-    },
  
     verificationCode:String,
     isVerified: {
         type: Boolean,
         default: false,
     },
+    houses: [{
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: 'House' // model name
+    }],
     dateCreated:{
     
         type:Date,
@@ -66,7 +68,7 @@ function validateUser(user){
         password: Joi.string().min(6).required(),
         role: Joi.string(),
         countryCode: Joi.string().min(3).max(5),
-        phoneNumber: Joi.string().min(9).max(14),      
+        phoneNumber: Joi.string().min(9).max(10),      
         verificationCode:Joi.string().min(3).max(50),
         isVerified: Joi.boolean()
         }

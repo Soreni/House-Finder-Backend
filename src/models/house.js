@@ -1,13 +1,18 @@
 const mongoose = require('mongoose');
 const Joi = require('joi');
+const User = require('./user');
 
 const houseSchema = new mongoose.Schema({
- 
     houseType:{
         type: String,
         required: true,
         minlength:3,
         maxlength:50
+    },
+      postedBy: {
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: 'User' // model name
+       
     },
     houseNumber:{
         type: String,
@@ -16,7 +21,7 @@ const houseSchema = new mongoose.Schema({
         minlength:3,
         maxlength:50
     },
-    furnished:{
+    isFurnished:{
         type: Boolean,
         default: false,
     },
@@ -40,15 +45,12 @@ const houseSchema = new mongoose.Schema({
         data: Buffer,
         type: String
     },
-    usage: {
-        type: String,
-    },
     availableDate: Date,
     localAreaName: {
         type:String,
         required: true,
     },
-    houseGPS:{ 
+GPSLocation:{ 
         type: {
           type: String,
           enum: ['Point'],
@@ -77,8 +79,9 @@ const houseSchema = new mongoose.Schema({
     function validateHouse(house){
         const schema = {
             houseType: Joi.string().min(3).max(50),
+            postedBy: Joi.string(),
             houseNumber: Joi.string().min(3).max(50),
-            furnished: Joi.boolean(),
+            isFurnished: Joi.boolean(),
             floor: Joi.string(),
             price: Joi.number(),
             unitStructure: Joi.string(),
@@ -86,7 +89,7 @@ const houseSchema = new mongoose.Schema({
             usage: Joi.string(),
             availableDate: Joi.date(),
             localAreaName: Joi.string().min(2).max(50),
-            houseGPS: Joi.coordinates(),
+            GPSLocation: Joi.coordinates(),
             description: Joi.string()
           
             }

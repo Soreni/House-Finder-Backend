@@ -9,9 +9,10 @@ module.exports.createHouse =async (req, res)=> {
      const {error}= validate(body);
      if(error) return res.status(404).json(error.details[0].message);
       
-   //  let house = await House.check({ houseNumber: body.houseNumber });
-  // if (house) return  res.status(400).json(`House is already registered under ${body.houseNumber} house number`);
-     let house = await House.create(body);
+   let house = await House.check({ houseNumber: body.houseNumber });
+      if (house) return  res.status(400).json(`House is already registered under ${body.houseNumber} house number`);
+      body.postedBy = 
+      house = await House.create(body);
      res.status(200).json("Successfully  Registered!");
    };
 

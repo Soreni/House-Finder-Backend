@@ -62,9 +62,15 @@ module.exports.createUser = async (req, res)=> {
 // Get all of Users
 exports.getAll = async (req, res)=> {
     let user = await User.getAll()
-    res.status(200).json({success: true, data:_.map(user,_.partialRight(_.pick,['_id','fullName','email']))})
+    res.status(200).json({success: true, user})
   
   }
+  // Get all of Users houses
+exports.getAllHouses = async (req, res)=> {
+  let user = await User.getAllHouses({_id: req.params.id})
+  res.status(200).json({success: true, user})
+
+}
     /**
    * Update a User 
    * 
