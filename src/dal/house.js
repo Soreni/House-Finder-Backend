@@ -24,7 +24,7 @@ const create = async function(houseData){
  * get a house with given id from db .
  */
 const getById = async function (_id) {
-    let house = await House.findById(_id);
+    let house = await House.findById(_id).populate('postedBy');
     return house;
   }
      
@@ -33,7 +33,8 @@ const getById = async function (_id) {
  * Fetch houses
  */
 const getAll = async function( ) {
-    let house = await House.find();
+    let house = await House.find().populate('postedBy');
+                
     return house;
   }
   
@@ -62,4 +63,4 @@ const update = async function(query, houseData) {
     return house;
   }
 
-  module.exports = {create, getAll, getById ,update,deleteById};
+  module.exports = {create, getAll, getById ,update,deleteById,check};

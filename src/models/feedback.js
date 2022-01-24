@@ -4,7 +4,7 @@ const User = require('./user');
 
 
 
-const FeedBackSchema = new mongoose.Schema({
+const FeedbackSchema = new mongoose.Schema({
     message:{
         type: String,
         maxlength:255,
@@ -20,13 +20,13 @@ const FeedBackSchema = new mongoose.Schema({
         default:Date.now
     }
     });
-    const FeedBack = mongoose.model('FeedBack',FeedBackSchema);
-    function validateFeedBack(feedback){
+    const Feedback = mongoose.model('Feedbac',FeedbackSchema);
+    function validateFeedback(feedback){
         const schema = {
             message: Joi.string().max(255)               
             }
             return Joi.validate(feedback);
     }
     
-    module.exports = FeedBack;
-    exports.validate = validateFeedBack;
+    module.exports = Feedback;
+    exports.validate = validateFeedback;

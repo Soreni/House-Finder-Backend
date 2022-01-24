@@ -28,6 +28,7 @@ module.exports.createUser = async (req, res)=> {
       //hashing password
       const salt = await bcrypt.genSalt();
       const hashPassword = await bcrypt.hash(body.password, salt);
+      console.log(`hash password: ${hashPassword}`)
 
       user = await User.create({
         fullName: body.fullName,

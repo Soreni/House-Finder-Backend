@@ -10,10 +10,10 @@ module.exports.createHouse =async (req, res)=> {
      if(error) return res.status(404).json(error.details[0].message);
       
    let house = await House.check({ houseNumber: body.houseNumber });
-      if (house) return  res.status(400).json(`House is already registered under ${body.houseNumber} house number`);
-      body.postedBy = 
+      if (house) return  res.status(400).json({success: false, message:`House is already registered under ${body.houseNumber} house number`});
+     
       house = await House.create(body);
-     res.status(200).json("Successfully  Registered!");
+     res.status(200).json({success: true, message:"Successfully  Registered!"});
    };
 
    
@@ -21,17 +21,17 @@ module.exports.createHouse =async (req, res)=> {
  
    exports.getHouse = async (req, res)=> {
     const house = await House.getById(req.params.id);
-    if (!house) return res.status(404).json("The house is not found!!!");
-    res.status(200).json(_.pick(house,['_id','houseType','furnished','floor','price','localAreaName','houseGPS','price']));
+    if (!house) return res.status(404).json({success: false, message:"The house is not found!!!"});
+    res.status(200).json({success: true, house});
     
 };
 
 // Get all of Users
 exports.getAll = async (req, res)=> {
   try{
-    let house = await House.getAll()
+    let house = await House.getAll();
    // res.status(200).json(_.map(house,_.partialRight(_.pick,['_id','houseType','furnished','floor'])))
-    res.status(200).json(house);
+    res.status(200).json({success: true, house});
   }
      catch{(err)=>console.log(err)};
   }

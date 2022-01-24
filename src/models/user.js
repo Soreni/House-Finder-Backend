@@ -36,10 +36,6 @@ const userSchema = new mongoose.Schema({
         type: Boolean,
         default: false,
     },
-    houses: [{
-        type: mongoose.Schema.Types.ObjectId, 
-        ref: 'House' // model name
-    }],
     dateCreated:{
     
         type:Date,

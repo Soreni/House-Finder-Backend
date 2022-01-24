@@ -1,19 +1,19 @@
 const express = require('express');
-const userController = require('../controller/house');
+const houseController = require('../controller/house');
 const auth = require('../middleware/verifyToken');
 const router = express.Router();
 
 
 
-router.post("/register", userController.createHouse);
+router.post("/register", houseController.createHouse);
 
-router.get("/:id", userController.getHouse);
+router.get("/:id",  houseController.getHouse);
 
-router.get("/", userController.getAll);
+router.get("/", houseController.getAll);
 
-router.put("/:id",auth, userController.updateHouse);
+router.put("/:id", houseController.updateHouse);
 
-router.delete("/:id",auth, userController.deleteHouse);
+router.delete("/:id", houseController.deleteHouse);
 
 
 // Expose the Router

@@ -10,7 +10,7 @@ const priceSchema = new mongoose.Schema({
         minlength: 2,
         maxlength:5
     },
-      house_id: {
+    house_id: {
         type: mongoose.Schema.Types.ObjectId, 
         ref: House // model name
        

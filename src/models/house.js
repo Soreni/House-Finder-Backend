@@ -51,15 +51,18 @@ const houseSchema = new mongoose.Schema({
         required: true,
     },
 GPSLocation:{ 
-        type: {
-          type: String,
-          enum: ['Point'],
-          required: true
+        altitude: {
+          type: [String], 
+          required: false
         },
-        coordinates: {
-          type: [Number], 
-          required: true
-        }},
+        longitude: {
+            type: [String], 
+            required: false
+        },
+        latitude: {
+            type: [String], 
+            required: false
+          }},
     description:{
         type: String,
     }
