@@ -6,7 +6,10 @@ const config = require("../config/key");
 const bcrypt = require("bcrypt");
 
 const generateAuthToken = (user) => {
-  return jwt.sign({ _id: user._id, email: user.email }, config.JWT_KEY);
+  return jwt.sign(
+    { _id: user._id, email: user.email, fullName: user.fullName },
+    config.JWT_KEY
+  );
 };
 
 //login a user

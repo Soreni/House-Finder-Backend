@@ -6,7 +6,10 @@ const jwt = require("jsonwebtoken");
 const config = require("../config/key");
 
 const generateAuthToken = (user) => {
-  return jwt.sign({ _id: user._id, email: user.email }, config.JWT_KEY);
+  return jwt.sign(
+    { _id: user._id, email: user.email, fullName: user.fullName },
+    config.JWT_KEY
+  );
 };
 
 //register a user as signup
@@ -25,7 +28,6 @@ module.exports.createUser = async (req, res) => {
     //hashing password
     const salt = await bcrypt.genSalt();
     const hashPassword = await bcrypt.hash(body.password, salt);
-    console.log(`hash password: ${hashPassword}`);
 
     user = await User.create({
       fullName: body.fullName,
@@ -46,14 +48,18 @@ module.exports.createUser = async (req, res) => {
     res.status(400).json({ success: false, err });
   }
 };
-
 exports.getUser = async (req, res) => {
-  const user = await User.getById(req.params.id);
-  if (!user)
-    return res
-      .status(404)
-      .json({ success: false, message: "The client is not found!!!" });
-  res.status(200).json({ success: true, user });
+  try {
+    const user = await User.getById(req.params.id);
+    console.log("user", user);
+    if (!user)
+      return res
+        .status(404)
+        .json({ success: false, message: "The client is not found!!!" });
+    res.status(200).json({ success: true, user });
+  } catch {
+    (err) => console.log(err);
+  }
 };
 
 // Get all of Users
@@ -77,11 +83,11 @@ exports.updateUser = async (req, res) => {
   if (error) return res.status(404).json(error.details[0].message);
   try {
     let user = await User.update({ _id: req.params.id }, body);
+    //create and asign token
+    const token = generateAuthToken(user);
     res
       .status(200)
-      .json(
-        _.pick(user, ["_id", "countryCode", "phoneNumber", "fullName", "email"])
-      );
+      .json({ success: true, message: "Successfully  Updated!", user, token });
   } catch (err) {
     res.status(400).json({ success: false, err });
   }
