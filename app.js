@@ -22,6 +22,7 @@ app.use("/api/housefinder/houses", require("./src/routes/houses"));
 app.use("/api/housefinder/users/login", require("./src/routes/login"));
 app.use("/api/housefinder/feedbacks", require("./src/routes/feedbacks"));
 
-app.listen(config.PORT, () =>
-  console.log(`Listening on port ${config.PORT}...`)
-);
+app.listen(process.env.PORT || 5000);
+// app.listen(config.PORT, () =>
+//   console.log(`Listening on port ${config.PORT}...`)
+// );
