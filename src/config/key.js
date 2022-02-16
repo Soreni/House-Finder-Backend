@@ -9,5 +9,5 @@ module.exports = {
     "mongodb+srv://admin1:HVvufM08srDrj2c9@cluster0.wwxxv.mongodb.net/housefinderDb?retryWrites=true&w=majority",
 
   // HTTP PORT
-  PORT: process.env.HTTP_PORT || 8081,
+  PORT: process.env.HTTP_PORT || 5000,
 };
