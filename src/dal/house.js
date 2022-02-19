@@ -26,7 +26,7 @@ const getById = async function (_id) {
  * Fetch houses
  */
 const getAll = async function () {
-  let house = await House.find().populate("postedBy");
+  let house = await House.find().select(["-images"]).populate("postedBy");
 
   return house;
 };
