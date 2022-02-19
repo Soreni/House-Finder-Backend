@@ -81,7 +81,7 @@ const House = mongoose.model("House", houseSchema);
 function validateHouse(house) {
   const schema = {
     houseType: Joi.string().min(3).max(50),
-    postedBy: Joi.string(),
+    postedBy: Joi.string().required(),
     houseNumber: Joi.string().min(3).max(50),
     isFurnished: Joi.boolean(),
     floor: Joi.string(),
